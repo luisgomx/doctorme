@@ -55,7 +55,7 @@ const Card = ({ doctor }) => {
           <IoLocationOutline />
           <p>{doctor.location}</p>
         </div>
-        <div className="mt-5 text-left">
+        <div className="mt-5 text-left h-16">
           <p className="text-sm font-extrabold">Availability</p>
           {doctor.availability.length === 0 ? (
             <p className="text-sm text-red-600">No slots available</p>
