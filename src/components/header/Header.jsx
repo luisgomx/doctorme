@@ -7,8 +7,11 @@ const Header = () => {
         <p className="text-3xl font-extrabold tracking-wide">
           DOCTOR<span className="font-extralight">ME</span>
         </p>
-        <p className="bg-white cursor-pointer text-black p-2 rounded-md text-sm tracking-widest mt-3 md:text-md md:mt-0 hover:scale-105">
-          Find a doctor
+        <p
+          onClick={() => alert("Gotcha!")}
+          className="bg-white cursor-pointer text-black p-2 rounded-md text-sm tracking-widest mt-3 md:text-md md:mt-0 hover:scale-105"
+        >
+          Find a Doctor!
         </p>
       </div>
     </div>
