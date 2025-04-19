@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDoctorsStore } from "../../store/useDoctorsStore";
 
-const SearchInput = ({ onSearch }) => {
-  const [specialtyQuery, setSpecialtyQuery] = useState("");
-  const [dayFilter, setDayFilter] = useState("");
+const SearchInput = () => {
+  const filters = useDoctorsStore((state) => state.filters);
+  const setFilters = useDoctorsStore((state) => state.setFilters);
 
   const days = [
     "",
@@ -17,28 +18,22 @@ const SearchInput = ({ onSearch }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newSpecialty = name === "specialty" ? value : specialtyQuery;
-    const newDay = name === "day" ? value : dayFilter;
-
-    setSpecialtyQuery(newSpecialty);
-    setDayFilter(newDay);
-
-    onSearch({ specialty: newSpecialty, day: newDay });
+    setFilters({ [name]: value });
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 items-center p-4">
+    <div className="flex flex-col md:flex-row gap-4 items-center p-4 pl-0 pr-0">
       <input
         type="text"
         name="specialty"
-        value={specialtyQuery}
+        value={filters.specialty}
         onChange={handleChange}
         placeholder="Search by specialty..."
         className="p-2 border rounded w-full md:w-1/2"
       />
       <select
         name="day"
-        value={dayFilter}
+        value={filters.day}
         onChange={handleChange}
         className="p-2 border rounded w-full md:w-1/3"
       >
