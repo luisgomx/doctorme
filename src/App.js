@@ -1,8 +1,19 @@
-import logo from "./logo.svg";
-import "./App.css";
+import ContentContainer from "./components/containers/ContentContainer";
+import HeaderContainer from "./components/containers/HeaderContainer";
+import Header from "./components/header/Header";
+import List from "./components/list/List";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <HeaderContainer>
+        <Header />
+      </HeaderContainer>
+      <ContentContainer>
+        <List />
+      </ContentContainer>
+    </>
+  );
 }
 
 export default App;
