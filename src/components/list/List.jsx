@@ -1,8 +1,7 @@
 import React from "react";
-import { doctors } from "../../mocks/doctors";
 import Card from "../card/Card";
 
-const List = () => {
+const List = ({ doctors }) => {
   return (
     <div className="flex flex-wrap gap-6">
       {doctors.map((doctor) => {

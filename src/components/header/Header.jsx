@@ -8,7 +8,7 @@ const Header = () => {
           DOCTOR<span className="font-extralight">ME</span>
         </p>
         <p className="bg-white cursor-pointer text-black p-2 rounded-md text-sm tracking-widest mt-3 md:text-md md:mt-0 hover:scale-105">
-          Find a doctor!
+          Find a doctor
         </p>
       </div>
     </div>
