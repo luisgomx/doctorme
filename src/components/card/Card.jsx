@@ -1,17 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IoLocationOutline,
   IoStar,
   IoStarHalf,
   IoStarOutline,
 } from "react-icons/io5";
-import { useDoctorsStore } from "../../store/useDoctorsStore";
 
-const Card = ({ doctor }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const bookAppointment = useDoctorsStore((state) => state.bookAppointment);
-
+const Card = ({ doctor, onBookClick }) => {
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -28,14 +23,6 @@ const Card = ({ doctor }) => {
       stars.push(<IoStarOutline key={`empty-${i}`} className="inline-block" />);
     }
     return stars;
-  };
-
-  const handleBook = () => {
-    if (selectedSlot) {
-      bookAppointment(doctor.id, selectedSlot);
-      setIsModalOpen(false);
-      setSelectedSlot(null);
-    }
   };
 
   return (
@@ -70,67 +57,13 @@ const Card = ({ doctor }) => {
 
         {doctor.availability.length > 0 && (
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsModalOpen(true);
-            }}
+            onClick={onBookClick}
             className="mt-4 px-4 py-2 bg-white text-black rounded hover:scale-105 transition"
           >
             Book now
           </button>
         )}
       </div>
-
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => {
-            setIsModalOpen(false);
-            setSelectedSlot(null);
-          }}
-        >
-          <div
-            className="bg-white p-6 rounded shadow-lg w-96"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-lg font-bold mb-4">Select a slot</h2>
-            <div className="flex flex-col gap-2 max-h-60 overflow-y-auto">
-              {doctor.availability.map((slot, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelectedSlot(slot)}
-                  className={`p-2 rounded border ${
-                    selectedSlot?.day === slot.day &&
-                    selectedSlot?.time === slot.time
-                      ? "bg-blue-300"
-                      : "hover:bg-gray-100"
-                  }`}
-                >
-                  {slot.day} at {slot.time}
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                onClick={() => {
-                  setIsModalOpen(false);
-                  setSelectedSlot(null);
-                }}
-                className="px-4 py-2 bg-gray-200 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleBook}
-                className="px-4 py-2 bg-blue-500 text-white rounded"
-                disabled={!selectedSlot}
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
