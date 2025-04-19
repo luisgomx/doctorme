@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useDoctorsStore = create((set) => ({
+export const useDoctorsStore = create((set, get) => ({
   doctors: [
     {
       id: "doc1",
@@ -55,10 +55,17 @@ export const useDoctorsStore = create((set) => ({
     specialty: "",
     day: "",
   },
+  appointments: [],
+
   setFilters: (filters) =>
     set((state) => ({ filters: { ...state.filters, ...filters } })),
-  bookAppointment: (doctorId, slotToRemove) =>
-    set((state) => ({
+
+  bookAppointment: (doctorId, slotToRemove) => {
+    const state = get();
+    const doctor = state.doctors.find((doc) => doc.id === doctorId);
+    if (!doctor) return;
+
+    set({
       doctors: state.doctors.map((doc) =>
         doc.id === doctorId
           ? {
@@ -73,5 +80,39 @@ export const useDoctorsStore = create((set) => ({
             }
           : doc
       ),
-    })),
+      appointments: [
+        ...state.appointments,
+        {
+          doctorId: doctor.id,
+          doctorName: doctor.name,
+          specialty: doctor.specialty,
+          photo: doctor.photo,
+          location: doctor.location,
+          slot: slotToRemove,
+        },
+      ],
+    });
+  },
+  cancelAppointment: (doctorId, slotToReturn) => {
+    const state = get();
+
+    set({
+      doctors: state.doctors.map((doc) =>
+        doc.id === doctorId
+          ? {
+              ...doc,
+              availability: [...doc.availability, slotToReturn],
+            }
+          : doc
+      ),
+      appointments: state.appointments.filter(
+        (appt) =>
+          !(
+            appt.doctorId === doctorId &&
+            appt.slot.day === slotToReturn.day &&
+            appt.slot.time === slotToReturn.time
+          )
+      ),
+    });
+  },
 }));
