@@ -8,6 +8,19 @@
   padding-right: 25%;
 }
 
+@media (max-width: 1024px) {
+  .customContainer {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .content {
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 3rem;
+  }
+}
+
 @media (max-width: 768px) {
   .customContainer {
     padding-left: 0;
