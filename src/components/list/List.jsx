@@ -44,7 +44,7 @@ const List = () => {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-6 justify-center sm:justify-start">
         {filteredDoctors.map((doctor) => (
           <Card
             key={doctor.id}
