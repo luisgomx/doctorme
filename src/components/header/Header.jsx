@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="p-10">
+    <div className="p-5 md:p-10">
       <div className="flex justify-between align-middle">
         <p className="text-3xl font-extrabold tracking-wide">
           DOCTOR<span className="font-extralight">ME</span>
